@@ -19,16 +19,17 @@ jQuery(document).ready(function($) {
 	if (viewedProductId) {
 		rvpaSetCookie(viewedProductId, count);
 	}
-
+	
 	$loader.show();
-
+	
 	$.ajax({
 		url: rvpa_ajax.url,
 		method: 'POST',
 		data: {
 			action: 'rvpa_get_products',
 			nonce: rvpa_ajax.nonce,
-			count: count
+			count: count,
+			exclude: viewedProductId || ''
 		},
 		success: function(response) {
 			if (response.success) {

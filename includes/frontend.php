@@ -8,27 +8,44 @@ add_action( 'wp_footer', function() {
 		margin-bottom: 10px;
 		font-size: 18px;
 	}
+	
 	.rvpa-product-list {
 		list-style: none;
 		padding: 0;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 10px;
+		margin: 0;
 	}
+	
 	.rvpa-product-list li {
-		text-align: center;
-		width: 120px;
+		display: flex;
+		align-items: center;
+		padding: 10px 0;
+		border-top: 1px solid #ccc;
 	}
-	.rvpa-product-list img {
-		width: 100%;
-		height: auto;
-		border-radius: 4px;
+	
+	.rvpa-product-list li:first-child {
+		border-top: none;
 	}
+	
 	.rvpa-product-link {
+		display: flex;
+		align-items: center;
 		text-decoration: none;
 		color: inherit;
-		display: block;
+		width: 100%;
 	}
+	
+	.rvpa-product-link img {
+		width: 60px;
+		height: auto;
+		border-radius: 4px;
+		margin-right: 12px;
+		flex-shrink: 0;
+	}
+	
+	.rvpa-product-link span {
+		font-size: 16px;
+	}
+	
 	.rvpa-loading {
 		text-align: center;
 		padding: 10px;

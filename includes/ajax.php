@@ -19,8 +19,15 @@ function rvpa_ajax_get_products() {
 	check_ajax_referer( 'rvpa_nonce', 'nonce' );
 
 	$count = isset( $_POST['count'] ) ? absint( $_POST['count'] ) : 5;
+	$exclude = isset( $_POST['exclude'] ) ? absint( $_POST['exclude'] ) : 0;
 	$raw_cookie = isset( $_COOKIE['rvpa_recently_viewed'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['rvpa_recently_viewed'] ) ) : '';
 	$cookie = $raw_cookie ? explode( ',', $raw_cookie ) : [];
+		$cookie = array_filter( $cookie ); // remove empty values
+		$cookie = array_map( 'absint', $cookie ); // sanitize integers
+		
+		if ( $exclude ) {
+			$cookie = array_diff( $cookie, [ $exclude ] );
+		}
 	$cookie = array_slice( $cookie, 0, $count );
 
 	if ( empty( $cookie ) ) {
