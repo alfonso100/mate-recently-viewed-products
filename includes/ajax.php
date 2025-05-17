@@ -11,20 +11,25 @@ function mrvp_enqueue_scripts() {
 		'url'   => admin_url( 'admin-ajax.php' ),
 		'nonce' => wp_create_nonce( 'mrvp_nonce' ),
 		'max_count' => get_option( 'mrvp_number_of_products', 5 ),
+		'show_spinner'  => (bool) get_option( 'mrvp_show_spinner', 1 ),
+		'show_price'    => (bool) get_option( 'mrvp_show_price', 0 ),
+		'show_excerpt'  => (bool) get_option( 'mrvp_show_excerpt', 0 ),
 	]);
 }
 
 add_action( 'wp_ajax_nopriv_mrvp_get_products', 'mrvp_ajax_get_products' ); // for visitors
 add_action( 'wp_ajax_mrvp_get_products', 'mrvp_ajax_get_products' ); 
+
 function mrvp_ajax_get_products() {
 	check_ajax_referer( 'mrvp_nonce', 'nonce' );
-
 	$count = isset( $_POST['count'] ) ? absint( $_POST['count'] ) : 5;
 	$exclude = isset( $_POST['exclude'] ) ? absint( $_POST['exclude'] ) : 0;
+	$show_price   = isset( $_POST['show_price'] ) ? (bool) $_POST['show_price'] : false;
+	$show_excerpt = isset( $_POST['show_excerpt'] ) ? (bool) $_POST['show_excerpt'] : false;
 	$raw_cookie = isset( $_COOKIE['mrvp_recently_viewed'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['mrvp_recently_viewed'] ) ) : '';
 	$cookie = $raw_cookie ? explode( ',', $raw_cookie ) : [];
-		$cookie = array_filter( $cookie ); // remove empty values
-		$cookie = array_map( 'absint', $cookie ); // sanitize integers
+	$cookie = array_filter( $cookie ); // remove empty values
+	$cookie = array_map( 'absint', $cookie ); // sanitize integers
 		
 		if ( $exclude ) {
 			$cookie = array_diff( $cookie, [ $exclude ] );
@@ -47,7 +52,7 @@ function mrvp_ajax_get_products() {
 
 	$layout = get_option( 'mrvp_layout', 'thumbs_titles' );
 	$title = isset( $_POST['title'] ) ? sanitize_text_field( wp_unslash( $_POST['title'] ) ) : get_option( 'mrvp_widget_title', 'Recently Viewed' );
-
+	
 	
 	echo '<div class="mrvp-wrapper">';
 	echo '<h4>' . esc_html( $title ) . '</h4>';
@@ -67,7 +72,19 @@ function mrvp_ajax_get_products() {
 			echo wp_kses_post( $product_image );
 		}
 	
-		echo '<span>' . esc_html( $product_title ) . '</span>';
+		echo '<div class="mrvp-info">';
+		echo '<div class="mrvp-title">' . esc_html( $product_title ) . '</div>';
+
+		if ( $show_price ) {
+			$product = wc_get_product( $product_id );
+			echo '<div class="mrvp-price">' . $product->get_price_html() . '</div>';
+		}
+		
+		if ( $show_excerpt ) {
+			$excerpt = wp_trim_words( get_the_excerpt(), 15, '…' );
+			echo '<div class="mrvp-excerpt">' . wp_kses_post( $excerpt ) . '</div>';
+		}
+		echo '</div>';
 		echo '</a>';
 		echo '</li>';
 	}

@@ -23,18 +23,22 @@ jQuery(document).ready(function($) {
 		mrvpSetCookie(viewedProductId, count);
 	}
 	
-	$loader.show();
+	if (mrvp_ajax.show_spinner) {
+		$loader.show();
+	}
 	
 	$.ajax({
 		url: mrvp_ajax.url,
 		method: 'POST',
 		data: {
-			action: 'mrvp_get_products',
-			nonce: mrvp_ajax.nonce,
-			count: count,
-			exclude: viewedProductId || '',
-			title: title
-
+		action: 'mrvp_get_products',
+		nonce: mrvp_ajax.nonce,
+		count: count,
+		exclude: viewedProductId || '',
+		title: $container.data('rvpa-title') || '',
+		layout: $container.data('rvpa-layout') || '',
+		show_price: mrvp_ajax.show_price ? 1 : 0,
+		show_excerpt: mrvp_ajax.show_excerpt ? 1 : 0,			
 		},
 		success: function(response) {
 			if (response.success) {

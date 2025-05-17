@@ -15,6 +15,7 @@ add_action( 'wp_footer', function() {
 		margin: 0;
 	}
 	
+	
 	.mrvp-product-list li {
 		display: flex;
 		align-items: center;
@@ -26,9 +27,18 @@ add_action( 'wp_footer', function() {
 		border-top: none;
 	}
 	
+	.mrvp-info {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+	
+	.mrvp-title {
+		font-weight: bold;
+	}
 	.mrvp-product-link {
 		display: flex;
-		align-items: center;
+		align-items: flex-start; 
 		text-decoration: none;
 		color: inherit;
 		width: 100%;
