@@ -1,11 +1,13 @@
-function rvpaSetCookie(productId, limit = 5) {
-	const cookieName = 'rvpa_recently_viewed';
+function rvpaSetCookie(productId) {
+	const cookieName = 'mrvp_recently_viewed';
 	const existing = Cookies.get(cookieName);
 	let ids = existing ? existing.split(',') : [];
 
 	ids = ids.filter(id => id !== productId.toString());
 	ids.unshift(productId);
-	ids = ids.slice(0, limit);
+
+	const max = mrvp_ajax.max_count || 5;
+	ids = ids.slice(0, max);
 
 	Cookies.set(cookieName, ids.join(','), { expires: 1, path: '/' });
 }
@@ -23,11 +25,11 @@ jQuery(document).ready(function($) {
 	$loader.show();
 	
 	$.ajax({
-		url: rvpa_ajax.url,
+		url: mrvp_ajax.url,
 		method: 'POST',
 		data: {
-			action: 'rvpa_get_products',
-			nonce: rvpa_ajax.nonce,
+			action: 'mrvp_get_products',
+			nonce: mrvp_ajax.nonce,
 			count: count,
 			exclude: viewedProductId || ''
 		},
