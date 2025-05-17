@@ -23,7 +23,7 @@ Perfect for boosting engagement, cross-selling, or giving customers a personaliz
 1. Upload the plugin folder to `/wp-content/plugins/`
 2. Activate the plugin via WP Admin → Plugins
 3. Adjust settings via **Settings → Recently Viewed Products**
-4. Use the shortcode `[rvpa_recent_products count=5 layout="thumbs_titles"]` or insert the **MATE** block in the editor
+4. Use the shortcode `[mrvp_recent_products count=5 layout="thumbs_titles" title="Your Title"]` or insert the **MATE** block in the editor
 
 == Changelog ==
 

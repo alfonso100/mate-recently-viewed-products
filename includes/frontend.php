@@ -4,29 +4,29 @@ add_action( 'wp_footer', function() {
 		echo '<script>document.body.dataset.productId = "' . esc_attr( get_the_ID() ) . '";</script>';
 	}
 	echo '<style>
-	.rvpa-wrapper h4 {
+	.mrvp-wrapper h4 {
 		margin-bottom: 10px;
 		font-size: 18px;
 	}
 	
-	.rvpa-product-list {
+	.mrvp-product-list {
 		list-style: none;
 		padding: 0;
 		margin: 0;
 	}
 	
-	.rvpa-product-list li {
+	.mrvp-product-list li {
 		display: flex;
 		align-items: center;
 		padding: 10px 0;
 		border-top: 1px solid #ccc;
 	}
 	
-	.rvpa-product-list li:first-child {
+	.mrvp-product-list li:first-child {
 		border-top: none;
 	}
 	
-	.rvpa-product-link {
+	.mrvp-product-link {
 		display: flex;
 		align-items: center;
 		text-decoration: none;
@@ -34,7 +34,7 @@ add_action( 'wp_footer', function() {
 		width: 100%;
 	}
 	
-	.rvpa-product-link img {
+	.mrvp-product-link img {
 		width: 60px;
 		height: auto;
 		border-radius: 4px;
@@ -42,15 +42,15 @@ add_action( 'wp_footer', function() {
 		flex-shrink: 0;
 	}
 	
-	.rvpa-product-link span {
+	.mrvp-product-link span {
 		font-size: 16px;
 	}
 	
-	.rvpa-loading {
+	.mrvp-loading {
 		text-align: center;
 		padding: 10px;
 	}
-	.rvpa-spinner {
+	.mrvp-spinner {
 		width: 24px;
 		height: 24px;
 		border: 3px solid #ccc;

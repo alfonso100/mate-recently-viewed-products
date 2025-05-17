@@ -6,8 +6,8 @@ function mrvp_enqueue_scripts() {
 	wp_register_script( 'js-cookie', $plugin_url . 'assets/js/js.cookie.min.js', [], '2.2.1', true );
 	wp_enqueue_script( 'js-cookie' );
 
-	wp_enqueue_script( 'rvpa-frontend', $plugin_url . 'assets/js/rvpa-frontend.js', [ 'jquery', 'js-cookie' ], '1.0.0', true );
-	wp_localize_script( 'rvpa-frontend', 'mrvp_ajax', [
+	wp_enqueue_script( 'mrvp-frontend', $plugin_url . 'assets/js/mrvp-frontend.js', [ 'jquery', 'js-cookie' ], '1.0.0', true );
+	wp_localize_script( 'mrvp-frontend', 'mrvp_ajax', [
 		'url'   => admin_url( 'admin-ajax.php' ),
 		'nonce' => wp_create_nonce( 'mrvp_nonce' ),
 		'max_count' => get_option( 'mrvp_number_of_products', 5 ),
@@ -46,11 +46,12 @@ function mrvp_ajax_get_products() {
 	ob_start();
 
 	$layout = get_option( 'mrvp_layout', 'thumbs_titles' );
-	$title  = get_option( 'mrvp_widget_title', 'Recently Viewed' );
+	$title = isset( $_POST['title'] ) ? sanitize_text_field( wp_unslash( $_POST['title'] ) ) : get_option( 'mrvp_widget_title', 'Recently Viewed' );
+
 	
-	echo '<div class="rvpa-wrapper">';
+	echo '<div class="mrvp-wrapper">';
 	echo '<h4>' . esc_html( $title ) . '</h4>';
-	echo '<ul class="rvpa-product-list">';
+	echo '<ul class="mrvp-product-list">';
 	
 	while ( $products->have_posts() ) {
 		$products->the_post();
@@ -59,7 +60,7 @@ function mrvp_ajax_get_products() {
 		$product_title = get_the_title( $product_id );
 	
 		echo '<li>';
-		echo '<a href="' . esc_url( $product_link ) . '" class="rvpa-product-link">';
+		echo '<a href="' . esc_url( $product_link ) . '" class="mrvp-product-link">';
 	
 		if ( $layout === 'thumbs_titles' ) {
 			$product_image = get_the_post_thumbnail( $product_id, 'shop_thumbnail' );
@@ -81,13 +82,21 @@ function mrvp_ajax_get_products() {
 
 add_shortcode( 'mrvp_recent_products', function( $atts ) {
 	$atts = shortcode_atts( [
-		'count' => get_option( 'mrvp_number_of_products', 5 ),
+		'count'  => get_option( 'mrvp_number_of_products', 5 ),
+		'title'  => get_option( 'mrvp_widget_title', 'Recently Viewed' ),
+		'layout' => get_option( 'mrvp_layout', 'thumbs_titles' ),
 	], $atts );
 
-	$count = absint( $atts['count'] );
+	$count  = absint( $atts['count'] );
+	$title  = sanitize_text_field( $atts['title'] );
+	$layout = sanitize_text_field( $atts['layout'] );
 
-	return '<div class="rvpa-container">
-		<div class="rvpa-loading"><div class="rvpa-spinner"></div></div>
-		<div id="rvpa-recently-viewed" data-rvpa-count="' . esc_attr( $count ) . '"></div>
+	return '<div class="mrvp-container">
+		<div class="mrvp-loading"><div class="mrvp-spinner"></div></div>
+		<div id="mrvp-recently-viewed"
+			data-mrvp-count="' . esc_attr( $count ) . '"
+			data-mrvp-title="' . esc_attr( $title ) . '"
+			data-mrvp-layout="' . esc_attr( $layout ) . '"
+		></div>
 	</div>';
 });

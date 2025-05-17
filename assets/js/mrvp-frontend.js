@@ -1,4 +1,4 @@
-function rvpaSetCookie(productId) {
+function mrvpSetCookie(productId) {
 	const cookieName = 'mrvp_recently_viewed';
 	const existing = Cookies.get(cookieName);
 	let ids = existing ? existing.split(',') : [];
@@ -13,13 +13,14 @@ function rvpaSetCookie(productId) {
 }
 
 jQuery(document).ready(function($) {
-	const $container = $('#rvpa-recently-viewed');
-	const $loader = $('.rvpa-loading');
-	const count = $container.data('rvpa-count') || 5;
+	const $container = $('#mrvp-recently-viewed');
+	const $loader = $('.mrvp-loading');
+	const count = $container.data('mrvp-count') || 5;
+	const title = $container.data('mrvp-title') || '';
 
 	const viewedProductId = $('body').data('product-id');
 	if (viewedProductId) {
-		rvpaSetCookie(viewedProductId, count);
+		mrvpSetCookie(viewedProductId, count);
 	}
 	
 	$loader.show();
@@ -31,7 +32,9 @@ jQuery(document).ready(function($) {
 			action: 'mrvp_get_products',
 			nonce: mrvp_ajax.nonce,
 			count: count,
-			exclude: viewedProductId || ''
+			exclude: viewedProductId || '',
+			title: title
+
 		},
 		success: function(response) {
 			if (response.success) {

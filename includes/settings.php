@@ -55,5 +55,5 @@ function mrvp_settings_page() {
 	<?php
 }
 add_action( 'admin_menu', function() {
-	add_options_page( 'Recently Viewed Products', 'Recently Viewed Products', 'manage_options', 'rvpa', 'mrvp_settings_page' );
+	add_options_page( 'Recently Viewed Products', 'Recently Viewed Products', 'manage_options', 'mrvp', 'mrvp_settings_page' );
 });
