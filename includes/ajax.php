@@ -11,7 +11,8 @@ function mrvp_enqueue_scripts() {
 		'url'   => admin_url( 'admin-ajax.php' ),
 		'nonce' => wp_create_nonce( 'mrvp_nonce' ),
 		'max_count' => get_option( 'mrvp_number_of_products', 5 ),
-		'show_spinner'  => (bool) get_option( 'mrvp_show_spinner', 1 ),
+		'show_spinner'  => (int) get_option( 'mrvp_show_spinner', 1 ),
+		'show_widgettitle'    => (int) get_option( 'mrvp_show_widgettitle', 1 ),
 		'show_price'    => (bool) get_option( 'mrvp_show_price', 0 ),
 		'show_excerpt'  => (bool) get_option( 'mrvp_show_excerpt', 0 ),
 	]);
@@ -24,6 +25,7 @@ function mrvp_ajax_get_products() {
 	check_ajax_referer( 'mrvp_nonce', 'nonce' );
 	$count = isset( $_POST['count'] ) ? absint( $_POST['count'] ) : 5;
 	$exclude = isset( $_POST['exclude'] ) ? absint( $_POST['exclude'] ) : 0;
+	$show_widgettitle   = isset( $_POST['show_widgettitle'] ) ? (bool) $_POST['show_widgettitle'] : true;
 	$show_price   = isset( $_POST['show_price'] ) ? (bool) $_POST['show_price'] : false;
 	$show_excerpt = isset( $_POST['show_excerpt'] ) ? (bool) $_POST['show_excerpt'] : false;
 	$raw_cookie = isset( $_COOKIE['mrvp_recently_viewed'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['mrvp_recently_viewed'] ) ) : '';
@@ -51,11 +53,16 @@ function mrvp_ajax_get_products() {
 	ob_start();
 
 	$layout = get_option( 'mrvp_layout', 'thumbs_titles' );
-	$title = isset( $_POST['title'] ) ? sanitize_text_field( wp_unslash( $_POST['title'] ) ) : get_option( 'mrvp_widget_title', 'Recently Viewed' );
-	
+	$title = isset( $_POST['title'] ) ? sanitize_text_field( wp_unslash( $_POST['title'] ) ) : '';
+	$title = $title !== '' ? $title : get_option( 'mrvp_widget_title', 'Recently Viewed' );
+	$show_widgettitle = (int) get_option( 'mrvp_show_widgettitle', 1 );
+
 	
 	echo '<div class="mrvp-wrapper">';
+	if ( $show_widgettitle ) {
 	echo '<h4>' . esc_html( $title ) . '</h4>';
+	}
+	
 	echo '<ul class="mrvp-product-list">';
 	
 	while ( $products->have_posts() ) {
@@ -109,11 +116,10 @@ add_shortcode( 'mrvp_recent_products', function( $atts ) {
 	$layout = sanitize_text_field( $atts['layout'] );
 
 	return '<div class="mrvp-container">
-		<div class="mrvp-loading"><div class="mrvp-spinner"></div></div>
 		<div id="mrvp-recently-viewed"
 			data-mrvp-count="' . esc_attr( $count ) . '"
 			data-mrvp-title="' . esc_attr( $title ) . '"
 			data-mrvp-layout="' . esc_attr( $layout ) . '"
-		></div>
+		><div class="mrvp-loading"><div class="mrvp-spinner"></div></div></div>
 	</div>';
 });

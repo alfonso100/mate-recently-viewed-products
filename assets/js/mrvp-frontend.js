@@ -14,31 +14,41 @@ function mrvpSetCookie(productId) {
 
 jQuery(document).ready(function($) {
 	const $container = $('#mrvp-recently-viewed');
-	const $loader = $('.mrvp-loading');
-	const count = $container.data('mrvp-count') || 5;
-	const title = $container.data('mrvp-title') || '';
+	const $loader = $container.find('.mrvp-loading'); 
 
+	const count  = $container.data('mrvp-count') || 5;
+	const title  = $container.data('mrvp-title') || '';
+	const layout = $container.data('mrvp-layout') || '';
 	const viewedProductId = $('body').data('product-id');
+
+	// Set the cookie based on the product ID
 	if (viewedProductId) {
 		mrvpSetCookie(viewedProductId, count);
+console.log(mrvp_ajax.show_spinner);
+console.log($loader);
+
 	}
-	
-	if (mrvp_ajax.show_spinner) {
+
+console.log('Show condition is:', parseInt(mrvp_ajax.show_spinner) === 1);
+
+	// Show spinner only if enabled in settings
+	if (parseInt(mrvp_ajax.show_spinner) === 1) {
 		$loader.show();
 	}
-	
+
+	// AJAX request to fetch recently viewed products
 	$.ajax({
 		url: mrvp_ajax.url,
 		method: 'POST',
 		data: {
-		action: 'mrvp_get_products',
-		nonce: mrvp_ajax.nonce,
-		count: count,
-		exclude: viewedProductId || '',
-		title: $container.data('rvpa-title') || '',
-		layout: $container.data('rvpa-layout') || '',
-		show_price: mrvp_ajax.show_price ? 1 : 0,
-		show_excerpt: mrvp_ajax.show_excerpt ? 1 : 0,			
+			action: 'mrvp_get_products',
+			nonce: mrvp_ajax.nonce,
+			count: count,
+			exclude: viewedProductId || '',
+			title: title,
+			layout: layout,
+			show_price: mrvp_ajax.show_price ? 1 : 0,
+			show_excerpt: mrvp_ajax.show_excerpt ? 1 : 0
 		},
 		success: function(response) {
 			if (response.success) {
@@ -46,7 +56,7 @@ jQuery(document).ready(function($) {
 			}
 		},
 		complete: function() {
-			$loader.hide();
+			$loader.hide(); // Always hide it after loading
 		}
 	});
 });

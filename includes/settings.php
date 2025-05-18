@@ -3,6 +3,7 @@ function mrvp_register_settings() {
 	add_option( 'mrvp_number_of_products', 5 );
 	add_option( 'mrvp_widget_title', 'Recently Viewed' );
 	add_option( 'mrvp_layout', 'thumbs_titles' );
+	add_option( 'mrvp_show_widgettitle', 1 );
 	add_option( 'mrvp_show_spinner', 1 );
 	add_option( 'mrvp_show_price', 0 );
 	add_option( 'mrvp_show_excerpt', 0 );
@@ -25,6 +26,12 @@ function mrvp_register_settings() {
 		'default' => 'thumbs_titles',
 	]);
 	
+	register_setting( 'mrvp_options_group', 'mrvp_show_widgettitle', [
+		'type' => 'boolean',
+		'sanitize_callback' => 'absint',
+		'default' => 1,
+	]);
+
 	register_setting( 'mrvp_options_group', 'mrvp_show_spinner', [
 		'type' => 'boolean',
 		'sanitize_callback' => 'absint',
@@ -67,6 +74,15 @@ function mrvp_settings_page() {
 							<option value="titles_only" <?php selected( get_option( 'mrvp_layout' ), 'titles_only' ); ?>>Titles only</option>
 							<option value="thumbs_titles" <?php selected( get_option( 'mrvp_layout' ), 'thumbs_titles' ); ?>>Thumbnail and Titles</option>
 						</select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">Show Widget Title</th>
+					<td>
+						<label>
+							<input type="checkbox" name="mrvp_show_widgettitle" value="1" <?php checked( get_option( 'mrvp_show_widgettitle', 1 ) ); ?> />
+							Display the widget section title (h4)
+						</label>
 					</td>
 				</tr>
 				<tr>

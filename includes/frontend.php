@@ -57,8 +57,9 @@ add_action( 'wp_footer', function() {
 	}
 	
 	.mrvp-loading {
-		text-align: center;
 		padding: 10px;
+		text-align: left;
+		display: none;
 	}
 	.mrvp-spinner {
 		width: 24px;
@@ -67,7 +68,6 @@ add_action( 'wp_footer', function() {
 		border-top: 3px solid #000;
 		border-radius: 50%;
 		animation: spin 0.8s linear infinite;
-		margin: auto;
 	}
 	@keyframes spin {
 		from { transform: rotate(0deg); }
