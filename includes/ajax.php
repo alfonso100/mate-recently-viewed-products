@@ -123,8 +123,11 @@ add_shortcode( 'mrvp_recent_products', function( $atts ) {
 	$show_spinner      = (int) $atts['show_spinner'];
 	$show_widgettitle  = (int) $atts['show_widgettitle'];
 
+	$unique_id = 'mrvp-' . uniqid();
+
 	return '<div class="mrvp-container">
-		<div id="mrvp-recently-viewed"
+		<div class="mrvp-recently-viewed"
+		id="' . esc_attr( $unique_id ) . '"
 		data-mrvp-count="' . esc_attr( $count ) . '"
 		data-mrvp-title="' . esc_attr( $title ) . '"
 		data-mrvp-show-image="' . esc_attr( $show_image ) . '"

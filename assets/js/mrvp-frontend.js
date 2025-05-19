@@ -13,7 +13,8 @@ function mrvpSetCookie(productId) {
 }
 
 jQuery(document).ready(function($) {
-	const $container = $('#mrvp-recently-viewed');
+	$('.mrvp-recently-viewed').each(function() {
+		const $container = $(this);
 	const $loader = $container.find('.mrvp-loading'); 
 
 	const count  = $container.data('mrvp-count') || 5;
@@ -57,5 +58,6 @@ jQuery(document).ready(function($) {
 		complete: function() {
 			$loader.hide(); // Always hide it after loading
 		}
+	});
 	});
 });
