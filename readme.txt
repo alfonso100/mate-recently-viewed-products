@@ -1,6 +1,6 @@
 === MATE Recently Viewed Products – Cache Compatible for WooCommerce ===
 Contributors: alfonso100  
-Tags: woocommerce, recently viewed, ajax, products, cookie, block, shortcode  
+Tags: woocommerce, recently viewed, cache, products, block  
 Requires at least: 5.0  
 Tested up to: 6.8  
 Requires PHP: 7.2  
@@ -8,7 +8,7 @@ Stable tag: 1.0.0
 License: GPLv2 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html  
 
-Display recently viewed WooCommerce products using AJAX and cookies, compatible with caching plugins. Includes a shortcode and a Gutenberg block with fully customizable options.
+Display recently viewed WooCommerce products via AJAX and cookies. Works with caching. Includes a customizable block and shortcode.
 
 == Description ==
 
@@ -78,3 +78,10 @@ They’re stored in a browser cookie (mrvp_recently_viewed) and loaded dynamical
 = 1.0.0 =
 
 Initial release: includes shortcode, Gutenberg block, and global settings page.
+
+
+== Screenshots ==
+
+1. Recently viewed products displayed using the block.
+2. Block settings in the Gutenberg editor.
+3. Global plugin settings page.

@@ -56,6 +56,9 @@ function mrvp_settings_page() {
 	?>
 	<div class="wrap">
 		<h2>MATE Recently Viewed Products – Cache Compatible for WooCommerce</h2>
+		
+		<h2><?php esc_html_e( 'Global Settings', 'mate-recently-viewed-products' ); ?></h2>
+
 		<form method="post" action="options.php">
 			<?php settings_fields( 'mrvp_options_group' ); ?>
 			<table class="form-table">
@@ -116,6 +119,67 @@ function mrvp_settings_page() {
 			<?php submit_button(); ?>
 		</form>
 	</div>
+	
+	
+	<?php
+	$options = get_option( 'mrvp_options_group', [] );
+	
+	$count            = isset( $options['mrvp_number_of_products'] ) ? absint( $options['mrvp_number_of_products'] ) : 5;
+	$title            = isset( $options['mrvp_widget_title'] ) ? sanitize_text_field( $options['mrvp_widget_title'] ) : 'Recently Viewed';
+	$show_price       = ! empty( $options['mrvp_show_price'] ) ? 1 : 0;
+	$show_excerpt     = ! empty( $options['mrvp_show_excerpt'] ) ? 1 : 0;
+	$show_image       = ! empty( $options['mrvp_show_image'] ) ? 1 : 0;
+	$show_spinner     = ! empty( $options['mrvp_show_spinner'] ) ? 1 : 0;
+	$show_widgettitle = ! empty( $options['mrvp_show_widgettitle'] ) ? 1 : 0;
+	
+	$shortcode = sprintf(
+		'[mrvp_recent_products count="%d" title="%s" show_price="%d" show_excerpt="%d" show_image="%d" show_spinner="%d" show_widgettitle="%d"]',
+		$count,
+		esc_attr( $title ),
+		$show_price,
+		$show_excerpt,
+		$show_image,
+		$show_spinner,
+		$show_widgettitle
+	);
+	?>
+	
+	<hr>
+	<h2><?php esc_html_e( 'Generated Shortcode', 'mate-recently-viewed-products' ); ?></h2>
+	<p><?php esc_html_e( 'You can use this shortcode anywhere on your site to display the widget with your current settings:', 'mate-recently-viewed-products' ); ?></p>
+	<input type="text"  size="120" class="mrvp-shortcode-preview" readonly value="<?php echo esc_attr( $shortcode ); ?>" onclick="this.select();" />
+	
+	<style>
+		input[readonly].mrvp-shortcode-preview {
+			font-family: monospace;
+			background-color: #FFF;
+		}
+	</style>
+	
+	<hr>
+	<h2><?php esc_html_e( 'Usage Instructions', 'mate-recently-viewed-products' ); ?></h2>
+
+<div style="background: #f8f8f8; border: 1px solid #ccc; padding: 15px; margin-top: 20px;">
+	<h3><?php esc_html_e( 'How to Use This Plugin', 'mate-recently-viewed-products' ); ?></h3>
+		<h4><?php esc_html_e( 'Option 1: Use the Shortcode', 'mate-recently-viewed-products' ); ?></h4>
+		<ul style="list-style: disc; padding-left: 20px;">
+			<li><?php esc_html_e( 'Copy the shortcode shown above.', 'mate-recently-viewed-products' ); ?></li>
+			<li><?php esc_html_e( 'Paste it into any post, page, sidebar widget, or custom HTML block.', 'mate-recently-viewed-products' ); ?></li>
+			<li><?php esc_html_e( 'To use it in a PHP template, insert:', 'mate-recently-viewed-products' ); ?>
+				<code>&lt;?php echo do_shortcode( '[mrvp_recent_products ...]' ); ?&gt;</code>
+			</li>
+		</ul>
+	
+		<h4><?php esc_html_e( 'Option 2: Use the Gutenberg Block', 'mate-recently-viewed-products' ); ?></h4>
+		<ul style="list-style: disc; padding-left: 20px;">
+			<li><?php esc_html_e( 'In the WordPress editor, click the "+" button to add a new block.', 'mate-recently-viewed-products' ); ?></li>
+			<li><?php esc_html_e( 'Search for "MATE Recently Viewed Products".', 'mate-recently-viewed-products' ); ?></li>
+			<li><?php esc_html_e( 'Configure block options such as title, product count, and display settings directly in the sidebar.', 'mate-recently-viewed-products' ); ?></li>
+		</ul>
+	
+		<p><strong><?php esc_html_e( 'Note:', 'mate-recently-viewed-products' ); ?></strong> <?php esc_html_e( 'Each instance of the block or shortcode works independently, and can override the global plugin settings.', 'mate-recently-viewed-products' ); ?></p>
+</div>
+
 	<?php
 }
 add_action( 'admin_menu', function() {
