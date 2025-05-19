@@ -37,7 +37,12 @@ add_action( 'init', function() {
         'attributes' => [
             'title' => [ 'type' => 'string', 'default' => '' ],
             'count' => [ 'type' => 'number', 'default' => 5 ],
-            'layout' => [ 'type' => 'string', 'default' => 'thumbs_titles' ],
+            'showImage' => [ 'type' => 'boolean', 'default' => true ],
+            'showPrice' => [ 'type' => 'boolean', 'default' => false ],
+            'showExcerpt' => [ 'type' => 'boolean', 'default' => false ],
+        ],  
+        'supports' => [
+            'inserter' => true,
         ]
     ]);
 });
@@ -45,7 +50,13 @@ add_action( 'init', function() {
 function mrvp_render_block( $attributes ) {
     $title  = $attributes['title'] ?? '';
     $count  = $attributes['count'] ?? 5;
-    $layout = $attributes['layout'] ?? 'thumbs_titles';
+    $show_image = isset( $attributes['showImage'] ) ? (bool) $attributes['showImage'] : true;
+    $show_price = isset( $attributes['showPrice'] ) ? (bool) $attributes['showPrice'] : false;
+    $show_excerpt = isset( $attributes['showExcerpt'] ) ? (bool) $attributes['showExcerpt'] : false;
 
-    return do_shortcode('[mrvp_recent_products title="' . esc_attr($title) . '" count="' . $count . '" layout="' . esc_attr($layout) . '"]');
+    return do_shortcode(
+        '[mrvp_recent_products title="' . esc_attr( $title ) . '" count="' . $count . '" show_image="' . ( $show_image ? '1' : '0' ) . '" show_price="' . ( $show_price ? '1' : '0' ) . '"  show_excerpt="' . ( $show_excerpt ? '1' : '0' ) . '"]'
+    );
+    
+
 }

@@ -18,18 +18,17 @@ jQuery(document).ready(function($) {
 
 	const count  = $container.data('mrvp-count') || 5;
 	const title  = $container.data('mrvp-title') || '';
-	const layout = $container.data('mrvp-layout') || '';
+	const showImage = parseInt($container.data('mrvp-show-image')) === 1;
+	const showPrice = parseInt($container.data('mrvp-show-price')) === 1;
+	const showExcerpt = parseInt($container.data('mrvp-show-excerpt')) === 1;
+
 	const viewedProductId = $('body').data('product-id');
 
 	// Set the cookie based on the product ID
 	if (viewedProductId) {
 		mrvpSetCookie(viewedProductId, count);
-console.log(mrvp_ajax.show_spinner);
-console.log($loader);
-
 	}
 
-console.log('Show condition is:', parseInt(mrvp_ajax.show_spinner) === 1);
 
 	// Show spinner only if enabled in settings
 	if (parseInt(mrvp_ajax.show_spinner) === 1) {
@@ -46,9 +45,9 @@ console.log('Show condition is:', parseInt(mrvp_ajax.show_spinner) === 1);
 			count: count,
 			exclude: viewedProductId || '',
 			title: title,
-			layout: layout,
-			show_price: mrvp_ajax.show_price ? 1 : 0,
-			show_excerpt: mrvp_ajax.show_excerpt ? 1 : 0
+			show_image: showImage ? 1 : 0,
+			show_price: showPrice ? 1 : 0,
+			show_excerpt: showExcerpt ? 1 : 0
 		},
 		success: function(response) {
 			if (response.success) {

@@ -9,7 +9,10 @@
 		attributes: {
 			title: { type: 'string', default: '' },
 			count: { type: 'number', default: 5 },
-			layout: { type: 'string', default: 'thumbs_titles' }
+			showImage: { type: 'boolean', default: true },
+			showPrice: { type: 'boolean', default: false },
+			showExcerpt: { type: 'boolean', default: false }
+			
 		},
 		edit: function(props) {
 			var atts = props.attributes;
@@ -51,15 +54,22 @@
 							value: atts.count,
 							onChange: function(val) { update('count', parseInt(val) || 1); }
 						}),
-						el(components.SelectControl, {
-							label: __('Layout', 'mate'),
-							value: atts.layout,
-							options: [
-								{ label: 'Image + Title', value: 'thumbs_titles' },
-								{ label: 'Title Only', value: 'titles_only' }
-							],
-							onChange: function(val) { update('layout', val); }
-						})
+						el(components.ToggleControl, {
+							label: __('Show Product Image', 'mate'),
+							checked: props.attributes.showImage,
+							onChange: (val) => props.setAttributes({ showImage: val })
+						}),
+						el(components.ToggleControl, {
+							label: __('Show Price', 'mate'),
+							checked: props.attributes.showPrice,
+							onChange: (val) => props.setAttributes({ showPrice: val })
+						}),
+						
+						el(components.ToggleControl, {
+							label: __('Show Description', 'mate'),
+							checked: props.attributes.showExcerpt,
+							onChange: (val) => props.setAttributes({ showExcerpt: val })
+						}),		
 					)
 				),
 				el('div', { dangerouslySetInnerHTML: { __html: preview } })
