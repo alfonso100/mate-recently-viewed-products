@@ -19,6 +19,7 @@ It uses cookies to store visited products and loads the display using AJAX, so i
 You can display products anywhere using a shortcode or a Gutenberg block. Both the block and shortcode allow you to override global settings on a per-instance basis.
 
 == Features ==
+
 - Cookie-based product tracking
 - Fully AJAX-loaded: works with full-page cache
 - Gutenberg block and classic shortcode
