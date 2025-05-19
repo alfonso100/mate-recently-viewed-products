@@ -1,42 +1,79 @@
 === MATE Recently Viewed Products – Cache Compatible for WooCommerce ===
-Contributors: alfonsocatron
-Tags: woocommerce, recently viewed, ajax, caching, mate
-Requires at least: 5.0
-Tested up to: 6.8
-Requires PHP: 7.2
-Stable tag: 1.0.0
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Contributors: alfonso100  
+Tags: woocommerce, recently viewed, ajax, products, cookie, block, shortcode  
+Requires at least: 5.0  
+Tested up to: 6.8  
+Requires PHP: 7.2  
+Stable tag: 1.0.0  
+License: GPLv2 or later  
+License URI: https://www.gnu.org/licenses/gpl-2.0.html  
 
-Track recently viewed WooCommerce products with AJAX and cookies. Fully cache-compatible. Includes shortcode and block.
+Display recently viewed WooCommerce products using AJAX and cookies, compatible with caching plugins. Includes a shortcode and a Gutenberg block with fully customizable options.
 
 == Description ==
 
-MATE (Memory-Aware Tracking Engine) lets you display recently viewed WooCommerce products with full cache compatibility. It stores visits in a cookie and renders products via AJAX, ensuring accurate output even with aggressive caching.
+**MATE Recently Viewed Products** lets you show WooCommerce products the customer recently visited — even when full-page caching is active.
 
-You can configure the title, layout (image + title or title-only), and product count from the settings page. Display the list anywhere with a shortcode or Gutenberg block.
+It uses cookies to store visited products and loads the display using AJAX, so it's fully compatible with caching plugins like WP Rocket, W3 Total Cache, and others.
 
-Perfect for boosting engagement, cross-selling, or giving customers a personalized touch.
+You can display products anywhere using a shortcode or a Gutenberg block. Both the block and shortcode allow you to override global settings on a per-instance basis.
+
+### 🔧 Features:
+- Cookie-based product tracking
+- Fully AJAX-loaded: works with full-page cache
+- Gutenberg block and classic shortcode
+- Settings page to configure global defaults
+- Per-block customization (title, number, image, price, excerpt, spinner)
+- Layout-friendly and responsive design
+- Works with all WooCommerce themes
 
 == Installation ==
 
 1. Upload the plugin folder to `/wp-content/plugins/`
-2. Activate the plugin via WP Admin → Plugins
-3. Adjust settings via **Settings → Recently Viewed Products**
-4. Use the shortcode `[mrvp_recent_products count=5 layout="thumbs_titles" title="Your Title"]` or insert the **MATE** block in the editor
+2. Activate the plugin via WP Admin > Plugins
+3. Go to **Settings > MATE – Recently Viewed Products** to configure global defaults
+4. Use the `[mrvp_recent_products]` shortcode or insert the **MATE Recently Viewed Products** block in the block editor
 
-== Changelog ==
+== Shortcode ==
 
-= 1.0.0 =
-* First public release: settings page, shortcode, block, full cache compatibility
+You can use the `[mrvp_recent_products]` shortcode anywhere. Optional attributes:
+
+```text
+[mrvp_recent_products
+	count="5"
+	title="Recently Viewed"
+	show_price="1"
+	show_excerpt="0"
+	show_image="1"
+	show_spinner="1"
+	show_widgettitle="1"
+]
+== Block ==
+
+The MATE Recently Viewed Products block includes these settings:
+
+- Title
+- Number of products
+- Show product image (checkbox)
+- Show price (checkbox)
+- Show excerpt (checkbox)
+- Show spinner while loading (checkbox)
+- Show block title (checkbox)
+- Each block instance can override global settings.
 
 == Frequently Asked Questions ==
 
 = Does it work with caching plugins? =
-Yes. MATE uses JavaScript and AJAX to fetch the recently viewed list, so it's fully compatible with page caching.
+Yes. Since product lists are loaded via AJAX using a cookie, this plugin works even when full-page caching is enabled.
 
-= What data does it store? =
-MATE stores product IDs in a browser cookie — no database writes required.
+= Can I use it multiple times on the same page? =
+Yes! Each instance will load and behave independently with its own settings.
 
-= Can I change the layout? =
-Yes. You can choose between \"titles only\" and \"thumbnail + titles\" from the settings page or block editor.
+= Where are the products stored? =
+They’re stored in a browser cookie (mrvp_recently_viewed) and loaded dynamically using JavaScript.
+
+== Changelog ==
+
+= 1.0.0 =
+
+Initial release: includes shortcode, Gutenberg block, and global settings page.
