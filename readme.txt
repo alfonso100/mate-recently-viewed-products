@@ -12,13 +12,13 @@ Display recently viewed WooCommerce products using AJAX and cookies, compatible 
 
 == Description ==
 
-**MATE Recently Viewed Products** lets you show WooCommerce products the customer recently visited — even when full-page caching is active.
+MATE Recently Viewed Products lets you show WooCommerce products the customer recently visited — even when full-page caching is active.
 
 It uses cookies to store visited products and loads the display using AJAX, so it's fully compatible with caching plugins like WP Rocket, W3 Total Cache, and others.
 
 You can display products anywhere using a shortcode or a Gutenberg block. Both the block and shortcode allow you to override global settings on a per-instance basis.
 
-### 🔧 Features:
+== Features ==
 - Cookie-based product tracking
 - Fully AJAX-loaded: works with full-page cache
 - Gutenberg block and classic shortcode
@@ -38,7 +38,6 @@ You can display products anywhere using a shortcode or a Gutenberg block. Both t
 
 You can use the `[mrvp_recent_products]` shortcode anywhere. Optional attributes:
 
-```text
 [mrvp_recent_products
 	count="5"
 	title="Recently Viewed"
@@ -48,6 +47,7 @@ You can use the `[mrvp_recent_products]` shortcode anywhere. Optional attributes
 	show_spinner="1"
 	show_widgettitle="1"
 ]
+
 == Block ==
 
 The MATE Recently Viewed Products block includes these settings:
