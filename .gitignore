@@ -1,3 +1,4 @@
 .nova/Configuration.json
 .nova/Publishing/Recently Viewed Products – AJAX & Cache Compatible for WooCommerce .json
 .DS_Store
+.nova/Publishing/*
