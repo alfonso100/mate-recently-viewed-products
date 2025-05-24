@@ -1,6 +1,6 @@
 <?php
 add_action( 'wp_footer', function() {
-	if ( is_product() ) {
+	if ( function_exists( 'is_product' ) && is_product() ) {
 		echo '<script>document.body.dataset.productId = "' . esc_attr( get_the_ID() ) . '";</script>';
 	}
 	echo '<style>
