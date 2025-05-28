@@ -2,7 +2,7 @@
 /**
  * Plugin Name: MATE Recently Viewed Products – Cache Compatible for WooCommerce
  * Description: AJAX-powered recently viewed products for WooCommerce. Works with caching. Includes shortcode and block.
- * Version:     1.0.1
+ * Version:     1.0.2
  * Author:      Alfonso Catrón
  * Author URI:  https://alfonsocatron.com
  * License:     GPLv2 or later
@@ -14,7 +14,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 define( 'MRVP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'MRVP_VERSION', '1.0.1' );
+define( 'MRVP_VERSION', '1.0.2' );
 
 require_once MRVP_PLUGIN_DIR . 'includes/settings.php';
 require_once MRVP_PLUGIN_DIR . 'includes/ajax.php';
@@ -64,8 +64,7 @@ function mrvp_render_block( $attributes ) {
 add_action( 'wp_enqueue_scripts', 'mrvp_enqueue_inline_product_id' );
 
 function mrvp_enqueue_inline_product_id() {
-    if ( is_product() ) {
-        // Enqueue any JS file – can be empty
+    if ( function_exists( 'is_product' ) && is_product() ) {
         wp_enqueue_script(
             'mrvp-product-id-js',
             plugins_url( 'assets/js/mrvp-product-id.js', __FILE__ ),
@@ -74,7 +73,6 @@ function mrvp_enqueue_inline_product_id() {
             true
         );
 
-        // Dynamically inject the JS with the product ID
         wp_add_inline_script(
             'mrvp-product-id-js',
             'document.body.dataset.productId = "' . esc_js( get_the_ID() ) . '";'
