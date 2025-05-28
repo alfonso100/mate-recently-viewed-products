@@ -17,7 +17,6 @@ define( 'MRVP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 require_once MRVP_PLUGIN_DIR . 'includes/settings.php';
 require_once MRVP_PLUGIN_DIR . 'includes/ajax.php';
-require_once MRVP_PLUGIN_DIR . 'includes/frontend.php';
 
 
 add_action( 'enqueue_block_editor_assets', function() {
@@ -58,4 +57,38 @@ function mrvp_render_block( $attributes ) {
     );
     
 
+}
+
+
+add_action( 'wp_enqueue_scripts', 'mrvp_enqueue_inline_product_id' );
+
+function mrvp_enqueue_inline_product_id() {
+    if ( is_product() ) {
+        // Enqueue any JS file – can be empty
+        wp_enqueue_script(
+            'mrvp-product-id-js',
+            plugins_url( 'assets/js/mrvp-product-id.js', __FILE__ ),
+            [],
+            null,
+            true
+        );
+
+        // Dynamically inject the JS with the product ID
+        wp_add_inline_script(
+            'mrvp-product-id-js',
+            'document.body.dataset.productId = "' . esc_js( get_the_ID() ) . '";'
+        );
+    }
+}
+
+
+add_action( 'wp_enqueue_scripts', 'mrvp_enqueue_frontend_css' );
+
+function mrvp_enqueue_frontend_css() {
+    wp_enqueue_style(
+        'mrvp-frontend',
+        plugins_url( 'assets/css/frontend.css', __FILE__ ),
+        [],
+        '1.0.0'
+    );
 }

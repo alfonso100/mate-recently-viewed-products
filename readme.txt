@@ -4,7 +4,7 @@ Tags: woocommerce, recently viewed, cache, products, block
 Requires at least: 5.0  
 Tested up to: 6.8  
 Requires PHP: 7.2  
-Stable tag: 1.0.0  
+Stable tag: 1.0.1  
 License: GPLv2 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -75,8 +75,11 @@ They’re stored in a browser cookie (mrvp_recently_viewed) and loaded dynamical
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.0.1 =
+- Moved inline JavaScript and CSS to properly enqueued files
+- Improved WordPress.org compliance for plugin review
 
+= 1.0.0 =
 Initial release: includes shortcode, Gutenberg block, and global settings page.
 
 
