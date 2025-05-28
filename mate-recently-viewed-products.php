@@ -14,6 +14,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 define( 'MRVP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'MRVP_VERSION', '1.0.1' );
 
 require_once MRVP_PLUGIN_DIR . 'includes/settings.php';
 require_once MRVP_PLUGIN_DIR . 'includes/ajax.php';
@@ -24,7 +25,7 @@ add_action( 'enqueue_block_editor_assets', function() {
         'mrvp-block',
         plugins_url( 'assets/js/mrvp-block.js', __FILE__ ),
         [ 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n', 'wp-block-editor' ],
-        '1.0.0',
+        MRVP_VERSION,
         true
     );
 });
@@ -69,7 +70,7 @@ function mrvp_enqueue_inline_product_id() {
             'mrvp-product-id-js',
             plugins_url( 'assets/js/mrvp-product-id.js', __FILE__ ),
             [],
-            null,
+            MRVP_VERSION,
             true
         );
 
@@ -89,6 +90,6 @@ function mrvp_enqueue_frontend_css() {
         'mrvp-frontend',
         plugins_url( 'assets/css/frontend.css', __FILE__ ),
         [],
-        '1.0.0'
+        MRVP_VERSION
     );
 }

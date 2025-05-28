@@ -8,7 +8,7 @@ function mrvp_enqueue_scripts() {
 	wp_register_script( 'js-cookie', $plugin_url . 'assets/js/js.cookie.min.js', [], '2.2.1', true );
 	wp_enqueue_script( 'js-cookie' );
 
-	wp_enqueue_script( 'mrvp-frontend', $plugin_url . 'assets/js/mrvp-frontend.js', [ 'jquery', 'js-cookie' ], '1.0.0', true );
+	wp_enqueue_script( 'mrvp-frontend', $plugin_url . 'assets/js/mrvp-frontend.js', [ 'jquery', 'js-cookie' ], MRVP_VERSION, true );
 	wp_localize_script( 'mrvp-frontend', 'mrvp_ajax', [
 		'url'   => admin_url( 'admin-ajax.php' ),
 		'nonce' => wp_create_nonce( 'mrvp_nonce' ),
