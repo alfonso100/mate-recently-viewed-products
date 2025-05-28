@@ -2,7 +2,7 @@
 /**
  * Plugin Name: MATE Recently Viewed Products – Cache Compatible for WooCommerce
  * Description: AJAX-powered recently viewed products for WooCommerce. Works with caching. Includes shortcode and block.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      Alfonso Catrón
  * Author URI:  https://alfonsocatron.com
  * License:     GPLv2 or later
