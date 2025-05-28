@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 add_action( 'wp_enqueue_scripts', 'mrvp_enqueue_scripts', 5 );
 function mrvp_enqueue_scripts() {
 	$plugin_url = plugin_dir_url( dirname( __FILE__ ) );

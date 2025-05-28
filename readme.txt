@@ -78,6 +78,7 @@ They’re stored in a browser cookie (mrvp_recently_viewed) and loaded dynamical
 = 1.0.1 =
 - Moved inline JavaScript and CSS to properly enqueued files
 - Improved WordPress.org compliance for plugin review
+- Added direct access protection to PHP files
 
 = 1.0.0 =
 Initial release: includes shortcode, Gutenberg block, and global settings page.

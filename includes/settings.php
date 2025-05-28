@@ -1,4 +1,6 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 function mrvp_register_settings() {
 	add_option( 'mrvp_number_of_products', 5 );
 	add_option( 'mrvp_widget_title', 'Recently Viewed' );
@@ -180,7 +182,7 @@ function mrvp_settings_page() {
 		<p><strong><?php esc_html_e( 'Note:', 'mate-recently-viewed-products' ); ?></strong> <?php esc_html_e( 'Each instance of the block or shortcode works independently, and can override the global plugin settings.', 'mate-recently-viewed-products' ); ?></p>
 </div>
 
-	<?php
+<?php
 }
 add_action( 'admin_menu', function() {
 	add_options_page(
