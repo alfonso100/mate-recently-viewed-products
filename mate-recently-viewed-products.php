@@ -32,13 +32,13 @@ add_action( 'enqueue_block_editor_assets', function() {
 
 add_action( 'init', function() {
     register_block_type( 'mrvp/recently-viewed', [
-        'render_callback' => 'mrvp_render_block',
+        'render_callback' => 'mrvp_render_block', 
         'attributes' => [
             'title' => [ 'type' => 'string', 'default' => '' ],
             'count' => [ 'type' => 'number', 'default' => 5 ],
             'showImage' => [ 'type' => 'boolean', 'default' => true ],
             'showPrice' => [ 'type' => 'boolean', 'default' => false ],
-            'showExcerpt' => [ 'type' => 'boolean', 'default' => false ],
+            'showExcerpt' => [ 'type' => 'boolean', 'default' => false ], 
         ],  
         'supports' => [
             'inserter' => true,
