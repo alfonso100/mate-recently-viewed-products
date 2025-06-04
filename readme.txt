@@ -4,7 +4,7 @@ Tags: woocommerce, recently viewed, cache, products, block
 Requires at least: 5.0  
 Tested up to: 6.8  
 Requires PHP: 7.2  
-Stable tag: 1.0.2  
+Stable tag: 1.0.3  
 License: GPLv2 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -64,6 +64,9 @@ The MATE Recently Viewed Products block includes these settings:
 
 == Frequently Asked Questions ==
 
+= Is it Free? =
+Yes. This plugin is free, all the features are included in the free version, it doesn't require a pro subscription or membership.
+
 = Does it work with caching plugins? =
 Yes. Since product lists are loaded via AJAX using a cookie, this plugin works even when full-page caching is enabled.
 
@@ -74,6 +77,12 @@ Yes! Each instance will load and behave independently with its own settings.
 They’re stored in a browser cookie (mrvp_recently_viewed) and loaded dynamically using JavaScript.
 
 == Changelog ==
+
+= 1.0.3 =
+- Changed the tracking logic so the products can be tracked even on pages where the widget is not present
+
+= 1.0.2 =
+- Added a fix to check if is_product() is defined, to avoid an error if WooCommerce is not installed
 
 = 1.0.1 =
 - Moved inline JavaScript and CSS to properly enqueued files
